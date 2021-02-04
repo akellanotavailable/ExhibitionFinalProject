@@ -13,12 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("")
 public class TestServlet extends HttpServlet {
 
-    public static String errorMessage = "";
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("test", "1");
-        req.setAttribute("message", errorMessage);
         req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
 

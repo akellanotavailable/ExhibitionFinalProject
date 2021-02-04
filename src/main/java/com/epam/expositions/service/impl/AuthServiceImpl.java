@@ -18,16 +18,13 @@ public class AuthServiceImpl implements AuthService {
             throw new InvalidDataException("Unexpected data input.");
         }
 
-        User user;
         try {
-            user = userService.findByLogin(data.getLogin());
-        }
-        catch (UserNotFoundException e){
+            User user = userService.findByLogin(data.getLogin());
+            if (!user.getPassword().equals(data.getPassword())) {
+                throw new InvalidDataException("Wrong password.");
+            }
+        } catch (UserNotFoundException e) {
             throw new InvalidDataException("No such login.");
-        }
-
-        if (!user.getPassword().equals(data.getPassword())){
-            throw new InvalidDataException("Wrong password.");
         }
 
     }

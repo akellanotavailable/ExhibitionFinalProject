@@ -23,11 +23,17 @@
 <body>
 <div class="container">
     <h2>Main page</h2>
-    <form action="login" method="post">
+    <form action="register" method="post">
         <div class="mb-3 row">
             <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
             <div class="col-sm-10">
-                <input name="username" type="text" class="form-control" id="inputLogin">
+                <input name="login" type="text" class="form-control" id="inputLogin">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input name="email" type="text" class="form-control" id="inputEmail">
             </div>
         </div>
         <div class="mb-3 row">
@@ -37,16 +43,17 @@
             </div>
         </div>
         <div class="mb-3 row">
+            <label for="inputRePassword" class="col-sm-2 col-form-label">Re-enter password</label>
             <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary mb-3">Sign in</button>
+                <input name="rePassword" type="password" class="form-control" id="inputRePassword">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary mb-3">Register</button>
             </div>
         </div>
     </form>
-    <div class="mb-3 row">
-        <div class="col-sm-10">
-            <a href="/register">Create account</a>
-        </div>
-    </div>
     <p style="color: red"><c:out value="${message}"/></p>
 </div>
 </body>

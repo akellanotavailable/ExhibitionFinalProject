@@ -33,8 +33,7 @@ public class AuthServlet extends HttpServlet {
             authService.authenticate(loginDTO);
         }
         catch (InvalidDataException exception){
-            TestServlet.errorMessage = "Invalid data.";
-            resp.sendRedirect("/");
+            resp.sendError(422, exception.getMessage());
             return;
         }
 
