@@ -10,8 +10,8 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Exposition {
-    private Integer id;
+public class Exposition implements Persistable<Long>{
+    private Long id;
     private String topic;
     private LocalDateTime dateStart;
     private LocalDateTime dateEnd;

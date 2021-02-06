@@ -20,7 +20,7 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        super.doGet(req,resp);
     }
 
     @Override
@@ -43,3 +43,4 @@ public class AuthServlet extends HttpServlet {
         resp.sendRedirect("/cabinet");
     }
 }
+//todo: Common servlet overrides service

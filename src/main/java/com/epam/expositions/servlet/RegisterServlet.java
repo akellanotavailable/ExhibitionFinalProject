@@ -33,7 +33,8 @@ public class RegisterServlet extends HttpServlet {
                 .login(req.getParameter("login"))
                 .email(req.getParameter("email"))
                 .password(req.getParameter("password"))
-                .rePassword(req.getParameter("rePassword")).build();
+                .rePassword(req.getParameter("rePassword"))
+                .build();
 
         try {
             registerService.register(registerDTO);

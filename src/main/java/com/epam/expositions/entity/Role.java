@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+public class Role implements Persistable<Long> {
     private Long id;
     private String name;
 }

@@ -24,6 +24,9 @@
 <div class="container">
     <h2>Cabinet page</h2>
     <p style="color: green"><c:out value="${login}"/> logined successfully.</p>
+    <form action="logout" method="get">
+        <button type="submit" class="btn btn-primary mb-3">Sign out</button>
+    </form>
 </div>
 </body>
 </html>

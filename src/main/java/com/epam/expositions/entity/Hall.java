@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Hall {
-    private Integer id;
+public class Hall implements Persistable<Long>{
+    private Long id;
     private String name;
 }

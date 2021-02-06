@@ -1,7 +1,8 @@
 package com.epam.expositions.dao.impl;
 
+import com.epam.expositions.dao.AbstractDAO;
 import com.epam.expositions.dao.UserDAO;
-import com.epam.expositions.entity.Role;
+import com.epam.expositions.dao.mapper.UserMapper;
 import com.epam.expositions.entity.User;
 import com.epam.expositions.util.ConnectionDB;
 import lombok.SneakyThrows;
@@ -12,64 +13,68 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
-import static com.epam.expositions.query.UserQueries.*;
-import static com.epam.expositions.query.UtilQueries.SELECT_LAST_INSERTED_ID;
+import static com.epam.expositions.dao.query.UserQueries.*;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
 
     private final Connection connection = ConnectionDB.getConnection();
 
-
-    @Override
-    @SneakyThrows
-    public Optional<User> findById(Long id) {
-
-        PreparedStatement preparedStatement = connection.prepareStatement(SELECT_FROM_USER_BY_ID);
-        preparedStatement.setLong(1, id);
-
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        User user = null;
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getLong("id"),
-                    resultSet.getString("login"),
-                    resultSet.getString("password"),
-                    resultSet.getString("email"),
-                    new Role(resultSet.getLong("role_id"),
-                           resultSet.getString("name")));
-
-        }
-
-        return Optional.ofNullable(user);
-
+    public UserDAOImpl() {
+        super(ConnectionDB.getConnection(), new UserMapper());
     }
 
     @Override
-    public List<Optional<User>> findALL() {
+    protected String getSelectQuery() {
+        return SELECT_FROM_USER;
+    }
+
+    @Override
+    protected String getSelectByIdQuery() {
+        return SELECT_FROM_USER_BY_ID;
+    }
+
+    @Override
+    protected String getSelectLastInsertedQuery() {
+        return SELECT_LAST_USER_INSERTED;
+    }
+
+    @Override
+    protected String getCreateQuery() {
+        return CREATE_USER;
+    }
+
+    @Override
+    protected String getUpdateQuery() {
+        return null;
+    }
+
+    @Override
+    protected String getDeleteQuery() {
         return null;
     }
 
     @Override
     @SneakyThrows
-    public Optional<User> create(User entity) {
-        PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER);
-        preparedStatement.setString(1, entity.getLogin());
-        preparedStatement.setString(2, entity.getPassword());
-        preparedStatement.setString(3, entity.getEmail());
-        preparedStatement.setLong(4, entity.getRole().getId());
-        preparedStatement.executeUpdate();
-
-        ResultSet resultSet = connection
-                .prepareStatement(SELECT_LAST_INSERTED_ID)
-                .executeQuery();
-        resultSet.next();
-        return findById(resultSet.getLong(1));
+    protected void prepareInsertStatement(PreparedStatement statement, User object) {
+        statement.setString(1, object.getLogin());
+        statement.setString(2, object.getPassword());
+        statement.setString(3, object.getEmail());
+        statement.setLong(4, object.getRole().getId());
     }
 
     @Override
-    public Optional<User>  update(User entity, Long id) {
+    protected void prepareUpdateStatement(PreparedStatement statement, User object) {
+
+    }
+
+    @Override
+    public List<User> findALL() {
         return null;
+    }
+
+    @Override
+    public Optional<User> update(User entity, Long id) {
+        return Optional.empty();
     }
 
     @Override
@@ -90,19 +95,7 @@ public class UserDAOImpl implements UserDAO {
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        User user = null;
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getLong("id"),
-                    resultSet.getString("login"),
-                    resultSet.getString("password"),
-                    resultSet.getString("email"),
-                    new Role(resultSet.getLong("role_id"),
-                            resultSet.getString("name")));
-
-        }
-
-        return Optional.ofNullable(user);
+        return mapper.map(resultSet).stream().findFirst();
     }
 
     @Override
@@ -113,18 +106,6 @@ public class UserDAOImpl implements UserDAO {
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        User user = null;
-        if (resultSet.next()) {
-            user = new User(
-                    resultSet.getLong("id"),
-                    resultSet.getString("login"),
-                    resultSet.getString("password"),
-                    resultSet.getString("email"),
-                    new Role(resultSet.getLong("role_id"),
-                            resultSet.getString("name")));
-
-        }
-
-        return Optional.ofNullable(user);
+        return mapper.map(resultSet).stream().findFirst();
     }
 }

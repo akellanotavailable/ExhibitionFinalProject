@@ -7,7 +7,7 @@ public interface GenericDAO <T, ID>{
 
     Optional<T> findById(ID id);
 
-    List<Optional<T>> findALL();
+    List<T> findALL();
 
     Optional<T> create(T entity);
 
