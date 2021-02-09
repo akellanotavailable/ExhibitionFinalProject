@@ -22,19 +22,23 @@
 </head>
 <body>
 <div class="container">
-    <h2>Main page</h2>
+    <h2>Sign-in</h2>
     <form action="login" method="post">
         <div class="mb-3 row">
             <label for="inputLogin" class="col-sm-2 col-form-label">Login</label>
             <div class="col-sm-10">
-                <input name="username" type="text" class="form-control" id="inputLogin">
+                <input name="username" type="text" required="required" class="form-control" id="inputLogin"
+                       pattern="[A-Za-z0-9_]{1,16}">
             </div>
         </div>
         <div class="mb-3 row">
             <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
             <div class="col-sm-10">
-                <input name="password" type="password" class="form-control" id="inputPassword">
+                <input name="password" type="password" class="form-control" id="inputPassword" required="required"
+                       pattern="[A-Za-z0-9_!?]{1,16}">
             </div>
+        </div>
+        <div id="errorMessage">
         </div>
         <div class="mb-3 row">
             <div class="col-sm-10">
@@ -47,7 +51,6 @@
             <a href="/register">Create account</a>
         </div>
     </div>
-    <p style="color: red"><c:out value="${message}"/></p>
 </div>
 </body>
 </html>

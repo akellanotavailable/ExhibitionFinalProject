@@ -39,14 +39,6 @@ public abstract class AbstractDAO<T extends Persistable<ID>, ID> implements Gene
 
     protected abstract void prepareUpdateStatement(PreparedStatement statement, T object);
 
-    private static <ID> ID convertInstanceOfObject(Object o, Class<ID> templateClass) {
-        try {
-            return templateClass.cast(o);
-        } catch (ClassCastException e) {
-            return null;
-        }
-    }
-
     @Override
     @SneakyThrows
     public Optional<T> findById(ID id) {
@@ -72,7 +64,7 @@ public abstract class AbstractDAO<T extends Persistable<ID>, ID> implements Gene
 
     @Override
     @SneakyThrows
-    public Optional<T> create(T entity) {
+    public T create(T entity) {
         PreparedStatement preparedStatement = connection.prepareStatement(getCreateQuery());
         prepareInsertStatement(preparedStatement, entity);
         preparedStatement.executeUpdate();
@@ -81,19 +73,31 @@ public abstract class AbstractDAO<T extends Persistable<ID>, ID> implements Gene
                 .prepareStatement(getSelectLastInsertedQuery())
                 .executeQuery();
 
-        T newUser = mapper.map(resultSet).stream().findFirst().orElseThrow(() ->
-                new UserNotFoundException("Unable to create a new user with data provided."));
-        return findById(newUser.getId());
+        return mapper.map(resultSet).get(0);
     }
 
     @Override
-    public Optional<T> update(T entity, ID id) {
-        return Optional.empty();
+    @SneakyThrows
+    public T update(T entity, ID id) {
+        PreparedStatement preparedStatement = connection.prepareStatement(getUpdateQuery());
+        prepareUpdateStatement(preparedStatement, entity);
+        preparedStatement.executeUpdate();
+
+        return findById(id).orElseThrow(RuntimeException::new);
     }
 
     @Override
     public boolean deleteById(ID id) {
-        return false;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(getDeleteQuery());
+            preparedStatement.setLong(1, (Long) id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 
     @Override

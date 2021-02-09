@@ -8,7 +8,7 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 
-    <link rel="stylesheet" href="style/reset.css">
+    <link rel="stylesheet" href="../style/reset.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
@@ -33,7 +33,7 @@
         <div class="mb-3 row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-                <input name="email" type="text" class="form-control" id="inputEmail">
+                <input name="email" type="email" class="form-control" id="inputEmail">
             </div>
         </div>
         <div class="mb-3 row">

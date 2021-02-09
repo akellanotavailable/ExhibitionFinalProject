@@ -1,14 +1,9 @@
 package com.epam.expositions.servlet;
 
 import com.epam.expositions.dto.RegisterDTO;
-import com.epam.expositions.entity.Role;
-import com.epam.expositions.entity.RoleName;
-import com.epam.expositions.entity.User;
 import com.epam.expositions.exception.InvalidDataException;
 import com.epam.expositions.service.RegisterService;
-import com.epam.expositions.service.UserService;
 import com.epam.expositions.service.impl.RegisterServiceImpl;
-import com.epam.expositions.service.impl.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,7 +19,7 @@ public class RegisterServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("register.jsp").forward(req, resp);
+        req.getRequestDispatcher("jsp/register.jsp").forward(req, resp);
     }
 
     @Override

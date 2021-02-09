@@ -1,5 +1,10 @@
 package com.epam.expositions.servlet;
 
+import com.epam.expositions.entity.Role;
+import com.epam.expositions.entity.User;
+import com.epam.expositions.service.UserService;
+import com.epam.expositions.service.impl.UserServiceImpl;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,9 +14,26 @@ import java.io.IOException;
 
 @WebServlet("/cabinet")
 public class CabinetServlet extends HttpServlet {
+    UserService userService = new UserServiceImpl();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("login", req.getSession().getAttribute("login"));
-        req.getRequestDispatcher("cabinet.jsp").forward(req, resp);
+        String login = (String) req.getSession().getAttribute("login");
+        req.setAttribute("login", login);
+
+        User user = userService.findByLogin(login);
+        req.setAttribute("role", user.getRole().getName());
+
+        if (user.getRole().getName().equals("admin")) {
+            req.setAttribute("userList", userService.findALL());
+        }
+        req.setAttribute("userData", userService.findByLogin(login));
+
+        req.getRequestDispatcher("jsp/cabinet.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 }

@@ -42,5 +42,6 @@ public class AuthServlet extends HttpServlet {
 
         resp.sendRedirect("/cabinet");
     }
+
 }
-//todo: Common servlet overrides service
+//todo: Common servlet overrides method "service" to catch exceptions

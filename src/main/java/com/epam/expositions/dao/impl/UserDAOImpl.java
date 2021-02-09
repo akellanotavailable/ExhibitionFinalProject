@@ -45,12 +45,12 @@ public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
 
     @Override
     protected String getUpdateQuery() {
-        return null;
+        return UPDATE_USER_BY_ID;
     }
 
     @Override
     protected String getDeleteQuery() {
-        return null;
+        return DELETE_USER_BY_ID;
     }
 
     @Override
@@ -63,23 +63,13 @@ public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
     }
 
     @Override
+    @SneakyThrows
     protected void prepareUpdateStatement(PreparedStatement statement, User object) {
-
-    }
-
-    @Override
-    public List<User> findALL() {
-        return null;
-    }
-
-    @Override
-    public Optional<User> update(User entity, Long id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean deleteById(Long id) {
-        return false;
+        statement.setString(1, object.getLogin());
+        statement.setString(2, object.getPassword());
+        statement.setString(3, object.getEmail());
+        statement.setLong(4, object.getRole().getId());
+        statement.setLong(5, object.getId());
     }
 
     @Override

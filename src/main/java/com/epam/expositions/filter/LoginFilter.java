@@ -19,9 +19,8 @@ public class LoginFilter extends HttpFilter {
         String loginURI = request.getContextPath() + "/";
 
         boolean loggedIn = (session != null) && (session.getAttribute("login") != null);
-        boolean loginRequest = request.getRequestURI().equals(loginURI);
 
-        if (loggedIn || loginRequest) {
+        if (loggedIn) {
             filterChain.doFilter(request, response);
         } else {
             response.sendRedirect(loginURI);
@@ -31,11 +30,11 @@ public class LoginFilter extends HttpFilter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        System.out.println("Filter started");
+        System.out.println("Login filter started");
     }
 
     @Override
     public void destroy() {
-        System.out.println("Filter stopped");
+        System.out.println("Login filter stopped");
     }
 }

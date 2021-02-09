@@ -9,9 +9,9 @@ public interface GenericDAO <T, ID>{
 
     List<T> findALL();
 
-    Optional<T> create(T entity);
+    T create(T entity);
 
-    Optional<T> update(T entity, ID id);
+    T update(T entity, ID id);
 
     boolean deleteById(ID id);
 

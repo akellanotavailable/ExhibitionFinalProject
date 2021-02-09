@@ -30,22 +30,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findALL() {
-        return null;
+        return userDAO.findALL();
     }
 
     @Override
     public User create(User entity) {
-        return userDAO.create(entity).orElseThrow(() -> new InvalidDataException("User already exists."));
+        return userDAO.create(entity);
     }
 
     @Override
     public User update(User entity, Long id) {
-        return null;
+        return userDAO.update(entity, id);
     }
 
     @Override
     public boolean deleteById(Long id) {
-        return false;
+        return userDAO.deleteById(id);
     }
 
     @Override
