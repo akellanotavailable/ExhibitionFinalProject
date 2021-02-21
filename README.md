@@ -6,4 +6,4 @@
 Авторизований користувач може купити квиток на обрану експозицію. 
 
 
-![alt text](https://i.imgur.com/uo5vSZp.png)
+![alt text](https://i.imgur.com/jWJPdJl.png)
