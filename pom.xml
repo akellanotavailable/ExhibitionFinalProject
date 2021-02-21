@@ -25,7 +25,7 @@
                     <programs>
                         <program>
                             <mainClass>com.epam.expositions.WebApplication</mainClass>
-                            <name>webapp</name>
+                            <name>program.id</name>
                         </program>
                     </programs>
                 </configuration>

@@ -5,8 +5,6 @@ import com.epam.expositions.entity.User;
 import java.util.List;
 
 public interface UserService{
-    User findById(Long id);
-
     User findByLogin(String login);
 
     User findByEmail(String email);

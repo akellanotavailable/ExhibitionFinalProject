@@ -20,24 +20,31 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req,resp);
+        HttpSession session = req.getSession(false);
+        if (session != null && session.getAttribute("login") != null) {
+            resp.sendRedirect("/cabinet");
+        } else
+            req.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        if (req.getSession(false) != null) {
+            req.getSession(false).invalidate();
+        }
 
         LoginDTO loginDTO = new LoginDTO(req.getParameter("username"),
                 req.getParameter("password"));
 
         try {
             authService.authenticate(loginDTO);
-        }
-        catch (InvalidDataException exception){
+        } catch (InvalidDataException exception) {
             resp.sendError(422, exception.getMessage());
             return;
         }
 
-        HttpSession session = req.getSession();
+        HttpSession session = req.getSession(true);
         session.setAttribute("login", loginDTO.getLogin());
 
         resp.sendRedirect("/cabinet");

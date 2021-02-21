@@ -9,7 +9,7 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 
-    <link rel="stylesheet" href="../style/reset.css">
+    <link rel="stylesheet" href="style/reset.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
@@ -23,7 +23,36 @@
 </head>
 <body>
 <div class="container">
-    <h2>Cabinet page</h2>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Gallery</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/expositions">Expositions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about">About us</a>
+                    </li>
+                    <li class="nav-item">
+                        <c:if test="${login!=null}">
+                            <a class="nav-link active" href="/cabinet" aria-disabled="true">Cabinet (${login})</a>
+                        </c:if>
+                        <c:if test="${login==null}">
+                            <a class="nav-link active" href="/login" aria-disabled="true">Login</a>
+                        </c:if>
+                    </li>
+                </ul>
+                <form class="d-flex" action="/search">
+                    <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
     <p style="color: green"><c:out value="${login}"/> signed-in successfully.</p>
     <form action="logout" method="get">
         <button type="submit" class="btn btn-primary mb-3">Sign out</button>
@@ -47,14 +76,14 @@
                             <label for="oldPassword" class="col-sm-2 col-form-label">Current password</label>
                             <div class="col-sm-10">
                                 <input name="password" type="password" class="form-control" id="oldPassword"
-                                       required="required" pattern="[A-Za-z0-9_!?]{4,16}">
+                                       required="required" pattern="[A-Za-z0-9_!?]{1,16}">
                             </div>
                         </div>
                         <div class="mb-3 row">
                             <label for="newPassword" class="col-sm-2 col-form-label">New password</label>
                             <div class="col-sm-10">
                                 <input name="newPassword" type="password" class="form-control" id="newPassword"
-                                       required="required" pattern="[A-Za-z0-9_!?]{4,16}">
+                                       required="required" pattern="[A-Za-z0-9_!?]{1,16}">
                             </div>
                         </div>
                         <div class="mb-3 row">
@@ -72,9 +101,6 @@
                                 <button type="submit" class="btn btn-primary mb-3">Change password</button>
                             </div>
                         </div>
-                        <c:if test="${successChange==true}">
-                            <h6 style = "color: green">Password changed successfuly.</h6>
-                        </c:if>
                     </form>
 
                 </td>

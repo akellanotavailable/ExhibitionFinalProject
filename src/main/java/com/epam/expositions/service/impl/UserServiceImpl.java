@@ -3,7 +3,6 @@ package com.epam.expositions.service.impl;
 import com.epam.expositions.dao.UserDAO;
 import com.epam.expositions.dao.impl.UserDAOImpl;
 import com.epam.expositions.entity.User;
-import com.epam.expositions.exception.InvalidDataException;
 import com.epam.expositions.exception.UserNotFoundException;
 import com.epam.expositions.service.UserService;
 
@@ -12,11 +11,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO = new UserDAOImpl();
-
-    @Override
-    public User findById(Long id) {
-        return null;
-    }
 
     @Override
     public User findByLogin(String login) {
@@ -50,6 +44,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean delete(User entity) {
-        return false;
+        return userDAO.delete(entity);
     }
+
 }

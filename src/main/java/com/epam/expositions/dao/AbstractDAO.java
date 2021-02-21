@@ -1,9 +1,7 @@
 package com.epam.expositions.dao;
 
 import com.epam.expositions.dao.mapper.ResultSetMapper;
-import com.epam.expositions.dao.query.UtilQueries;
 import com.epam.expositions.entity.Persistable;
-import com.epam.expositions.exception.UserNotFoundException;
 import lombok.SneakyThrows;
 
 import java.sql.Connection;
@@ -47,9 +45,6 @@ public abstract class AbstractDAO<T extends Persistable<ID>, ID> implements Gene
         preparedStatement.setString(1, id.toString());
         ResultSet resultSet = preparedStatement.executeQuery();
         List<T> res = mapper.map(resultSet);
-        if (res.size() > 1) {
-            throw new SQLException("Received more than one record.");
-        }
         return res.stream().findFirst();
     }
 
@@ -83,7 +78,7 @@ public abstract class AbstractDAO<T extends Persistable<ID>, ID> implements Gene
         prepareUpdateStatement(preparedStatement, entity);
         preparedStatement.executeUpdate();
 
-        return findById(id).orElseThrow(RuntimeException::new);
+        return findById(id).orElseThrow(SQLException::new);
     }
 
     @Override
@@ -93,8 +88,7 @@ public abstract class AbstractDAO<T extends Persistable<ID>, ID> implements Gene
             preparedStatement.setLong(1, (Long) id);
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
+        } catch (SQLException e) {
             return false;
         }
         return true;
@@ -102,6 +96,6 @@ public abstract class AbstractDAO<T extends Persistable<ID>, ID> implements Gene
 
     @Override
     public boolean delete(T entity) {
-        return false;
+        return deleteById(entity.getId());
     }
 }

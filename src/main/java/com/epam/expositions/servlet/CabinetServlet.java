@@ -1,6 +1,5 @@
 package com.epam.expositions.servlet;
 
-import com.epam.expositions.entity.Role;
 import com.epam.expositions.entity.User;
 import com.epam.expositions.service.UserService;
 import com.epam.expositions.service.impl.UserServiceImpl;
@@ -29,7 +28,7 @@ public class CabinetServlet extends HttpServlet {
         }
         req.setAttribute("userData", userService.findByLogin(login));
 
-        req.getRequestDispatcher("jsp/cabinet.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/jsp/cabinet.jsp").forward(req, resp);
     }
 
     @Override

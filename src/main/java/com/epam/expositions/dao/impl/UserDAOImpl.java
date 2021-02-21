@@ -10,7 +10,6 @@ import lombok.SneakyThrows;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 import java.util.Optional;
 
 import static com.epam.expositions.dao.query.UserQueries.*;
@@ -18,7 +17,6 @@ import static com.epam.expositions.dao.query.UserQueries.*;
 public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
 
     private final Connection connection = ConnectionDB.getConnection();
-
     public UserDAOImpl() {
         super(ConnectionDB.getConnection(), new UserMapper());
     }
@@ -70,11 +68,6 @@ public class UserDAOImpl extends AbstractDAO<User, Long> implements UserDAO {
         statement.setString(3, object.getEmail());
         statement.setLong(4, object.getRole().getId());
         statement.setLong(5, object.getId());
-    }
-
-    @Override
-    public boolean delete(User entity) {
-        return false;
     }
 
     @Override

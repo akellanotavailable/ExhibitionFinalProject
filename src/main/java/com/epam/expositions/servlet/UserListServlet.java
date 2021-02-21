@@ -23,13 +23,14 @@ public class UserListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("userList", userService.findALL());
-        req.getRequestDispatcher("jsp/userlist.jsp").forward(req, resp);
+        req.getRequestDispatcher("WEB-INF/jsp/userlist.jsp").forward(req, resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (!userService.deleteById(Long.parseLong(req.getParameter("userid")))) {
-            System.out.println("user with id " + req.getParameter("userid") + " was not deleted");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        Long id = Long.parseLong(req.getParameter("userid"));
+        if (!userService.deleteById(id)) {
+            System.out.println("User with id " + id + " was not deleted.");
         }
         resp.sendRedirect("/userlist");
     }
