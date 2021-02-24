@@ -31,8 +31,7 @@ public class RegisterServiceImpl implements RegisterService {
                 .login(data.getLogin())
                 .email(data.getEmail())
                 .password(data.getPassword())
-                .role(new Role(2L, RoleName.USER.getRoleName()))
+                .role(new Role(3L, RoleName.USER.getRoleName()))
                 .build());
-
     }
 }

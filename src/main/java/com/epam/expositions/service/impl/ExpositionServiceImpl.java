@@ -18,7 +18,7 @@ public class ExpositionServiceImpl implements ExpositionService {
 
     @Override
     public Exposition findById(Long id) {
-        return null;
+        return expositionDAO.findById(id).orElseThrow(RuntimeException::new);
     }
 
     @Override
@@ -28,6 +28,7 @@ public class ExpositionServiceImpl implements ExpositionService {
         for (Exposition e :
                 expositions) {
             expositionDTOS.add(ExpositionDTO.builder()
+                    .id(e.getId())
                     .topic(e.getTopic())
                     .dateStart(convertLocalDateTimeToSQLDateString(e.getDateStart()))
                     .dateEnd(convertLocalDateTimeToSQLDateString(e.getDateEnd()))
@@ -54,6 +55,7 @@ public class ExpositionServiceImpl implements ExpositionService {
 
             if (!showLegacy && item.getDateEnd().isAfter(LocalDateTime.now())) {
                 expositionDTOS.add(ExpositionDTO.builder()
+                        .id(item.getId())
                         .topic(item.getTopic())
                         .dateStart(Converter.parseExpositionDateToDTOString(item.getDateStart()))
                         .dateEnd(Converter.parseExpositionDateToDTOString(item.getDateEnd()))
@@ -87,7 +89,7 @@ public class ExpositionServiceImpl implements ExpositionService {
 
     @Override
     public Exposition update(Exposition entity, Long id) {
-        return null;
+        return expositionDAO.update(entity, id);
     }
 
     @Override

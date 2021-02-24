@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import com.epam.expositions.entity.Status;
 
 public class ExpositionDAOImpl extends AbstractDAO<Exposition, Long> implements ExpositionDAO {
 
@@ -61,6 +62,8 @@ public class ExpositionDAOImpl extends AbstractDAO<Exposition, Long> implements 
         statement.setObject(3, object.getDateStart());
         statement.setObject(4, object.getDateEnd());
         statement.setBigDecimal(5, object.getPrice());
+        statement.setLong(6, object.getCapacity());
+        statement.setLong(7, Status.fromName(object.getStatusName()).getId());
     }
 
     private void prepareDetailsInsertStatement(PreparedStatement statement, Exposition object) throws SQLException {
@@ -81,11 +84,14 @@ public class ExpositionDAOImpl extends AbstractDAO<Exposition, Long> implements 
         preparePreparedStatement(statement, object);
     }
 
+//    public static final String UPDATE_EXPOSITION_BY_ID = "UPDATE exposition SET host_user_id = ?, topic = ?, date_start = ?,\n" +
+//            "date_end = ?, price = ?, capacity = ?, status_id = ? WHERE (id = ?)";
+
     @Override
     @SneakyThrows
     protected void prepareUpdateStatement(PreparedStatement statement, Exposition object) {
         preparePreparedStatement(statement, object);
-        statement.setLong(6, object.getId());
+        statement.setLong(8, object.getId());
     }
 
     @Override
@@ -137,9 +143,9 @@ public class ExpositionDAOImpl extends AbstractDAO<Exposition, Long> implements 
         connection.commit();
         connection.setAutoCommit(true);
 
-        ResultSet resultSet = connection
-                .prepareStatement(getSelectLastInsertedQuery())
-                .executeQuery();
+        PreparedStatement statement = connection.prepareStatement(ExpositionQueries.SELECT_FROM_EXPOSITION_BY_ID);
+                statement.setLong(1, entity.getId());
+        ResultSet resultSet = statement.executeQuery();
 
         return mapper.map(resultSet).get(0);
     }

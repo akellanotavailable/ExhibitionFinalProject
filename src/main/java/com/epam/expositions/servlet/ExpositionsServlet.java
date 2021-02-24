@@ -19,7 +19,6 @@ public class ExpositionsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ExpositionDTO> expositionList = service.findALL(true);
-        System.out.println(expositionList);
         req.setAttribute("expositionList", expositionList);
         req.getRequestDispatcher("WEB-INF/jsp/expositions.jsp").forward(req, resp);
     }

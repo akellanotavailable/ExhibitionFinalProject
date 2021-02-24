@@ -1,3 +1,4 @@
+<%@ page import="com.epam.expositions.entity.User" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -8,7 +9,7 @@
     <meta charset="UTF-8"/>
     <title>Title</title>
 
-    <link rel="stylesheet" href="../../style/reset.css">
+    <link rel="stylesheet" href="style/reset.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&display=swap" rel="stylesheet">
@@ -19,43 +20,7 @@
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
 
-    <style>
-        .card {
-            width: 60vw;
-            height: 200px;
-            display: flex;
-            flex-direction: row;
-            position: relative;
-        }
-
-        .image, .knopka {
-            width: 25%;
-        }
-
-        .image {
-            height: 100%;
-        }
-
-        .cardList {
-            margin: 5px;
-            width: 40%;
-        }
-
-        .image {
-            object-fit: cover;
-            margin: 5px;
-        }
-
-        .knopka {
-            position: absolute;
-            bottom: 5px;
-            right: 15px;
-        }
-    </style>
-
-
 </head>
-
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -91,40 +56,20 @@
             </div>
         </div>
     </nav>
-    <h2>Currently available: </h2>
-    <c:if test="${expositionList.size() == 0}">
-        <h5>No expositions available this week.</h5>
-    </c:if>
-    <c:if test="${expositionList.size() != 0}">
-        <c:forEach var="exposition" items="${expositionList}">
-            <div class="card">
-                <img src="${exposition.imagePath}" class="image"
-                     alt="No image"/>
-                <div class="cardList">
-                    <h5>${exposition.topic}</h5>
-                    <ul>
-                        <li>Starting: ${exposition.dateStart}</li>
-                        <li>Finishing: ${exposition.dateEnd}</li>
-                        <li>Price: ${exposition.price}</li>
-                        <li>Places left: ${exposition.capacity}</li>
-                    </ul>
-                    <h6>For more information:</h6>
-                    <a href="https://${exposition.detailsLink}">Link</a>
-                </div>
-                <c:if test="${exposition.capacity > 0}">
-                    <form action="/purchase">
-                        <input name="username" type="hidden" value="${login}"/>
-                        <input name="expositionId" type="hidden" value="${exposition.id}"/>
-                        <button class="btn btn-success knopka" type="submit">Purchase ticket</button>
-                    </form>
-                </c:if>
-                <c:if test="${exposition.capacity == 0}">
-                    <button class="btn knopka">Sold out</button>
-                </c:if>
-            </div>
-        </c:forEach>
-    </c:if>
+    <br>
+    <form action="/purchase" method="post">
+        <h3>Your ticket:</h3>
+        <h6>Username: ${username}</h6>
+        <h6>Exposition: ${exposition.topic}</h6>
+        <h6>Price: ${exposition.price}</h6>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="confirm" id="flexCheckDefault" required>
+            <label class="form-check-label" for="flexCheckDefault">
+                I agree with <a href="/policy">service policy</a>.
+            </label>
+        </div>
+        <button type="submit" class="btn">Purchase</button>
+    </form>
 </div>
-
 </body>
 </html>

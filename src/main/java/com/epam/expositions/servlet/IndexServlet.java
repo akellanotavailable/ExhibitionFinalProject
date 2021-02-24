@@ -23,4 +23,5 @@ public class IndexServlet extends HttpServlet {
         req.setAttribute("expositionList", expositionList);
         req.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(req, resp);
     }
+
 }

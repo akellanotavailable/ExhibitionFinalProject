@@ -25,6 +25,7 @@ public class ExpositionMapper implements ResultSetMapper<Exposition> {
                     .price(resultSet.getBigDecimal("price"))
                     .imagePath(resultSet.getString("image"))
                     .detailsLink(resultSet.getString("details"))
+                    .statusName(resultSet.getString("status_name"))
                     .build();
             expositions.add(exposition);
         }

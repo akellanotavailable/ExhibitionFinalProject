@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class ExpositionDTO {
+    private Long id;
     private String topic;
     private String dateStart;
     private String dateEnd;
@@ -19,4 +20,5 @@ public class ExpositionDTO {
     private Long capacity;
     private String imagePath;
     private String detailsLink;
+    private String statusName;
 }

@@ -61,7 +61,7 @@
     <c:if test="${role.equals(\"admin\")}">
         <a href="/userlist">User list</a>
     </c:if>
-    <c:if test="${role.equals(\"user\") || role.equals(\"admin\")}">
+    <c:if test="${role.equals(\"user\") || role.equals(\"admin\") || role.equals(\"client\")}">
         <table class="table">
             <tbody>
             <tr>
@@ -108,6 +108,10 @@
             <tr>
                 <td scope="row">Email</td>
                 <td>${userData.email}</td>
+            </tr>
+            <tr>
+                <td>Your ticket history</td>
+                <td><a href="/history">View here.</a></td>
             </tr>
             </tbody>
         </table>

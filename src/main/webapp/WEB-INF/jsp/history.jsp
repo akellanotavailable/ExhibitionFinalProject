@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" %>
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -18,46 +17,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
             crossorigin="anonymous"></script>
-
-    <style>
-        .card {
-            width: 60vw;
-            height: 200px;
-            display: flex;
-            flex-direction: row;
-            position: relative;
-        }
-
-        .image, .knopka {
-            width: 25%;
-        }
-
-        .image {
-            height: 100%;
-        }
-
-        .cardList {
-            margin: 5px;
-            width: 40%;
-        }
-
-        .image {
-            object-fit: cover;
-            margin: 5px;
-        }
-
-        .knopka {
-            position: absolute;
-            bottom: 5px;
-            right: 15px;
-        }
-    </style>
-
-
 </head>
-
-<body>
 <div class="container">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">Gallery</a>
@@ -91,40 +53,22 @@
             </div>
         </div>
     </nav>
-    <h2>Currently available: </h2>
-    <c:if test="${expositionList.size() == 0}">
-        <h5>No expositions available this week.</h5>
-    </c:if>
-    <c:if test="${expositionList.size() != 0}">
-        <c:forEach var="exposition" items="${expositionList}">
-            <div class="card">
-                <img src="${exposition.imagePath}" class="image"
-                     alt="No image"/>
-                <div class="cardList">
-                    <h5>${exposition.topic}</h5>
-                    <ul>
-                        <li>Starting: ${exposition.dateStart}</li>
-                        <li>Finishing: ${exposition.dateEnd}</li>
-                        <li>Price: ${exposition.price}</li>
-                        <li>Places left: ${exposition.capacity}</li>
-                    </ul>
-                    <h6>For more information:</h6>
-                    <a href="https://${exposition.detailsLink}">Link</a>
-                </div>
-                <c:if test="${exposition.capacity > 0}">
-                    <form action="/purchase">
-                        <input name="username" type="hidden" value="${login}"/>
-                        <input name="expositionId" type="hidden" value="${exposition.id}"/>
-                        <button class="btn btn-success knopka" type="submit">Purchase ticket</button>
-                    </form>
-                </c:if>
-                <c:if test="${exposition.capacity == 0}">
-                    <button class="btn knopka">Sold out</button>
-                </c:if>
-            </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Exposition</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="item" items="${purchaseMap}">
+            <tr>
+                <td>${item.key}</td>
+                <td>${item.value}</td>
+            </tr>
         </c:forEach>
-    </c:if>
+        </tbody>
+    </table>
 </div>
-
 </body>
 </html>

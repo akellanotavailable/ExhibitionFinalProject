@@ -22,4 +22,5 @@ public class Exposition implements Persistable<Long>{
     private Long capacity;
     private String imagePath;
     private String detailsLink;
+    private String statusName;
 }

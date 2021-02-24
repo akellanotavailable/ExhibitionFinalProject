@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter("/cabinet")
+@WebFilter({"/cabinet", "/purchase", "/history"})
 public class LoginFilter extends HttpFilter {
 
     @Override
@@ -16,7 +16,7 @@ public class LoginFilter extends HttpFilter {
 
         HttpSession session = request.getSession(false);
 
-        String loginURI = request.getContextPath() + "/";
+        String loginURI = request.getContextPath() + "/login";
 
         boolean loggedIn = (session != null) && (session.getAttribute("login") != null);
 
