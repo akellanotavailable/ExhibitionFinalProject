@@ -2,7 +2,9 @@ package com.epam.expositions.servlet;
 
 import com.epam.expositions.dto.ExpositionDTO;
 import com.epam.expositions.service.ExpositionService;
+import com.epam.expositions.service.HallService;
 import com.epam.expositions.service.impl.ExpositionServiceImpl;
+import com.epam.expositions.service.impl.HallServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +22,10 @@ public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<ExpositionDTO> expositionList = service.findByDate(LocalDateTime.now());
+
+        HallService hallService = new HallServiceImpl();
+        System.out.println(hallService.findAll());
+
         req.setAttribute("expositionList", expositionList);
         req.getRequestDispatcher("WEB-INF/jsp/main.jsp").forward(req, resp);
     }
