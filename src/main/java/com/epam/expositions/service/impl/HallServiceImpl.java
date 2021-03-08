@@ -75,4 +75,8 @@ public class HallServiceImpl implements HallService {
     public boolean delete(HallTimetableDTO entity) {
         return false;
     }
+
+    public boolean createHallReservation(Long hallId, Long expositionId){
+        return hallDAO.createHallReservation(hallId, expositionId);
+    }
 }

@@ -84,9 +84,6 @@ public class ExpositionDAOImpl extends AbstractDAO<Exposition, Long> implements 
         preparePreparedStatement(statement, object);
     }
 
-//    public static final String UPDATE_EXPOSITION_BY_ID = "UPDATE exposition SET host_user_id = ?, topic = ?, date_start = ?,\n" +
-//            "date_end = ?, price = ?, capacity = ?, status_id = ? WHERE (id = ?)";
-
     @Override
     @SneakyThrows
     protected void prepareUpdateStatement(PreparedStatement statement, Exposition object) {
@@ -107,20 +104,21 @@ public class ExpositionDAOImpl extends AbstractDAO<Exposition, Long> implements 
     @Override
     @SneakyThrows
     public Exposition create(Exposition entity) {
-        connection.setAutoCommit(false);
-
         PreparedStatement preparedExpositionStatement = connection.prepareStatement(getCreateQuery());
         prepareInsertStatement(preparedExpositionStatement, entity);
         preparedExpositionStatement.executeUpdate();
+
+        ResultSet resultSet = connection.prepareStatement(ExpositionQueries.GET_LAST_EXPOSITION_INSERT_ID)
+                .executeQuery();
+        resultSet.next();
+        Long id = resultSet.getLong("id");
+        entity.setId(id);
 
         PreparedStatement preparedExpositionDetailsStatement = connection.prepareStatement(ExpositionQueries.CREATE_EXPOSITION_DETAILS);
         prepareDetailsInsertStatement(preparedExpositionDetailsStatement, entity);
         preparedExpositionDetailsStatement.executeUpdate();
 
-        connection.commit();
-        connection.setAutoCommit(true);
-
-        ResultSet resultSet = connection
+        resultSet = connection
                 .prepareStatement(getSelectLastInsertedQuery())
                 .executeQuery();
 

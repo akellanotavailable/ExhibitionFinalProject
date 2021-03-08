@@ -4,6 +4,7 @@ import com.epam.expositions.dao.ExpositionDAO;
 import com.epam.expositions.dao.impl.ExpositionDAOImpl;
 import com.epam.expositions.dto.ExpositionDTO;
 import com.epam.expositions.entity.Exposition;
+import com.epam.expositions.entity.Status;
 import com.epam.expositions.service.ExpositionService;
 import com.epam.expositions.util.Converter;
 
@@ -53,7 +54,7 @@ public class ExpositionServiceImpl implements ExpositionService {
         for (Exposition item :
                 expositions) {
 
-            if (!showLegacy && item.getDateEnd().isAfter(LocalDateTime.now())) {
+            if (!showLegacy && item.getStatusName().equals(Status.PURCHASED.getName())) {
                 expositionDTOS.add(ExpositionDTO.builder()
                         .id(item.getId())
                         .topic(item.getTopic())
@@ -63,11 +64,13 @@ public class ExpositionServiceImpl implements ExpositionService {
                         .capacity(item.getCapacity())
                         .imagePath(item.getImagePath())
                         .detailsLink(item.getDetailsLink())
+                        .statusName(item.getStatusName())
                         .build());
             }
 
             if (showLegacy) {
                 expositionDTOS.add(ExpositionDTO.builder()
+                        .id(item.getId())
                         .topic(item.getTopic())
                         .dateStart(Converter.parseExpositionDateToDTOString(item.getDateStart()))
                         .dateEnd(Converter.parseExpositionDateToDTOString(item.getDateEnd()))
@@ -75,6 +78,7 @@ public class ExpositionServiceImpl implements ExpositionService {
                         .capacity(item.getCapacity())
                         .imagePath(item.getImagePath())
                         .detailsLink(item.getDetailsLink())
+                        .statusName(item.getStatusName())
                         .build());
             }
 
@@ -84,7 +88,7 @@ public class ExpositionServiceImpl implements ExpositionService {
 
     @Override
     public Exposition create(Exposition entity) {
-        return null;
+        return expositionDAO.create(entity);
     }
 
     @Override

@@ -1,0 +1,8 @@
+<c:forEach var="hall" items="${hallList}">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="${hall.id}" id="flexCheckDefault" name="hallCheck">
+        <label class="form-check-label" for="flexCheckDefault">
+            <c:out value="${hall.name}"/>
+        </label>
+    </div>
+</c:forEach>

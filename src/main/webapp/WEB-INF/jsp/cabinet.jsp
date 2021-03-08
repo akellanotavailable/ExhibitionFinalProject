@@ -68,9 +68,26 @@
                 <td>Your ticket history</td>
                 <td><a href="/history">View here.</a></td>
             </tr>
+            <tr>
+                <c:if test="${role.equals(\"user\")}">
+                    <form action="/newexposition">
+                        <h6>Want your own exposition? Create it now!</h6>
+                        <button type="submit" class="btn btn-primary mb-3">Create exposition</button>
+                    </form>
+                </c:if>
+                <c:if test="${role.equals(\"client\")}">
+                    <form action="/expositionlist">
+                        <td>Your expositions</td>
+                        <td>
+                            <button type="submit" class="btn btn-primary mb-3">Expositions</button>
+                        </td>
+                    </form>
+                </c:if>
+            </tr>
             </tbody>
         </table>
     </c:if>
+
 </div>
 </body>
 </html>

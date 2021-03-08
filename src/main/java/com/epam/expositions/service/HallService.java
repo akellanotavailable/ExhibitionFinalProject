@@ -10,6 +10,7 @@ public interface HallService {
     List<HallTimetableDTO> findAll();
     HallTimetableDTO findById(Long id);
     List<DurationDTO> getTimeUnavailable(Hall hall);
+    boolean createHallReservation(Long hallId, Long expositionId);
     HallTimetableDTO create(HallTimetableDTO entity);
 
     HallTimetableDTO update(HallTimetableDTO entity, Long id);

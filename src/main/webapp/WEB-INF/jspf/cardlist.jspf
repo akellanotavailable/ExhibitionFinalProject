@@ -11,7 +11,7 @@
                 <li>Places left: ${exposition.capacity}</li>
             </ul>
             <h6>For more information:</h6>
-            <a href="https://${exposition.detailsLink}">Link</a>
+            <a href="${exposition.detailsLink}">Link</a>
         </div>
         <c:if test="${exposition.capacity > 0}">
             <form action="/purchase">

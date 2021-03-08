@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter({"/cabinet", "/purchase", "/history"})
+@WebFilter({"/cabinet", "/purchase", "/history", "/newexposition", "/reservehall"})
 public class LoginFilter extends HttpFilter {
 
     @Override

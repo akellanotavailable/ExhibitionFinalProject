@@ -13,6 +13,7 @@ import lombok.SneakyThrows;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,5 +86,19 @@ public class HallDAOImpl extends AbstractDAO<Hall, Long> implements HallDAO {
         }
 
         return list;
+    }
+
+    public boolean createHallReservation(Long hallId, Long expositionId) {
+        try {
+            PreparedStatement statement = connection
+                    .prepareStatement("INSERT INTO hall_has_exposition (hall_id, exposition_id) VALUES (?, ?)");
+            statement.setLong(1, hallId);
+            statement.setLong(2, expositionId);
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

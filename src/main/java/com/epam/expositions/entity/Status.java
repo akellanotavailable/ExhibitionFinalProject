@@ -8,7 +8,8 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @Getter
 public enum Status {
-    DONE("done", 3L), PURCHASED("purchased", 1L), REFUNDED("refunded", 2L);
+    DONE("done", 3L), PURCHASED("purchased", 1L),
+    REFUNDED("refunded", 2L), WAITING("waiting", 4L);
     private final String name;
     private final Long id;
 

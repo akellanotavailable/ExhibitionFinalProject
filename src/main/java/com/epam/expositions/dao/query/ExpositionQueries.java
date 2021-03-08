@@ -30,9 +30,11 @@ public class ExpositionQueries {
             " join status as s on status_id = s.id\n"+
             " where e.id = last_insert_id()";
 
+    public static final String GET_LAST_EXPOSITION_INSERT_ID = "SELECT e.id FROM exposition as e WHERE e.id = last_insert_id()";
+
     public static final String CREATE_EXPOSITION =
             "INSERT INTO exposition (host_user_id, topic, date_start,\n" +
-            "date_end, price, capacity, status_id) VALUES (?, ?, ?, ?, ?, ?)";
+            "date_end, price, capacity, status_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     public static final String CREATE_EXPOSITION_DETAILS = "INSERT INTO exposition_presentation (exposition_id , image, details)\n" +
             "VALUES(?, ?, ?);";

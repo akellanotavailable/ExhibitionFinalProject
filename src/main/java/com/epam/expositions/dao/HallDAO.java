@@ -6,5 +6,6 @@ import com.epam.expositions.entity.Hall;
 import java.util.List;
 
 public interface HallDAO extends GenericDAO<Hall, Long>{
-    public List<HallExpositionDTO> getHallExpositionReservation();
+    List<HallExpositionDTO> getHallExpositionReservation();
+    boolean createHallReservation(Long hallId, Long expositionId);
 }
