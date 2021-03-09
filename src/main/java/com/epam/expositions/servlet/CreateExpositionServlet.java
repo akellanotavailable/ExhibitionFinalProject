@@ -74,7 +74,7 @@ public class CreateExpositionServlet extends HttpServlet {
 
         expositionService.create(exposition);
 
-        if (user.getRole().getName().equals("client") || user.getRole().getName().equals("admin")) {
+        if (!user.getRole().getName().equals("client") || !user.getRole().getName().equals("admin")) {
             user.setRole(new Role(2L, "client"));
             userService.update(user, user.getId());
         }

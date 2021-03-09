@@ -16,11 +16,6 @@ public class UserListServlet extends HttpServlet {
     UserService userService = new UserServiceImpl();
 
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.service(req, resp);
-    }
-
-    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("userList", userService.findALL());
         req.getRequestDispatcher("WEB-INF/jsp/userlist.jsp").forward(req, resp);

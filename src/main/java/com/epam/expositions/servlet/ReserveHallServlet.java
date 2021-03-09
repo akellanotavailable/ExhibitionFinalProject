@@ -2,7 +2,10 @@ package com.epam.expositions.servlet;
 
 import com.epam.expositions.entity.Exposition;
 import com.epam.expositions.entity.Hall;
+import com.epam.expositions.entity.Status;
+import com.epam.expositions.service.ExpositionService;
 import com.epam.expositions.service.HallService;
+import com.epam.expositions.service.impl.ExpositionServiceImpl;
 import com.epam.expositions.service.impl.HallServiceImpl;
 
 import javax.servlet.ServletException;
@@ -20,6 +23,7 @@ import java.util.List;
 public class ReserveHallServlet extends HttpServlet {
 
     HallService hallService = new HallServiceImpl();
+    ExpositionService expositionService = new ExpositionServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +43,9 @@ public class ReserveHallServlet extends HttpServlet {
                 hallService.createHallReservation(hall.getId(), exposition.getId());
             }
         });
+
+        exposition.setStatusName(Status.PURCHASED.getName());
+        expositionService.update(exposition, exposition.getId());
 
         resp.sendRedirect("/thanks");
     }

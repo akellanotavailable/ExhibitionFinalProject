@@ -7,13 +7,13 @@ import java.util.List;
 public interface UserService{
     User findByLogin(String login);
 
-    User findByEmail(String email);
-
     List<User> findALL();
 
     User create(User entity);
 
     User update(User entity, Long id);
+
+    User findById(Long id);
 
     boolean deleteById(Long id);
 

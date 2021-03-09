@@ -18,13 +18,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userDAO.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found - " + email));
+    public List<User> findALL() {
+        return userDAO.findALL();
     }
 
     @Override
-    public List<User> findALL() {
-        return userDAO.findALL();
+    public User findById(Long id) {
+        return userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User not found - " + id));
     }
 
     @Override

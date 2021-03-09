@@ -11,7 +11,7 @@ public interface ExpositionService {
 
     List<ExpositionDTO> findByDate(LocalDateTime date);
 
-    Exposition findByHostId(String email);
+    List<ExpositionDTO> findByHostId(Long id);
 
     List<ExpositionDTO> findALL(boolean showLegacy);
 

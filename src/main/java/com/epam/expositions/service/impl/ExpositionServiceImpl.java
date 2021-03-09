@@ -43,8 +43,25 @@ public class ExpositionServiceImpl implements ExpositionService {
     }
 
     @Override
-    public Exposition findByHostId(String email) {
-        return null;
+    public List<ExpositionDTO> findByHostId(Long id) {
+        List<ExpositionDTO> expositionDTOS = new ArrayList<>();
+        List<Exposition> expositions = expositionDAO.findALL();
+        expositions.forEach(exposition -> {
+            if(exposition.getHostId().equals(id)){
+                expositionDTOS.add(ExpositionDTO.builder()
+                        .id(exposition.getId())
+                        .topic(exposition.getTopic())
+                        .dateStart(Converter.parseExpositionDateToDTOString(exposition.getDateStart()))
+                        .dateEnd(Converter.parseExpositionDateToDTOString(exposition.getDateEnd()))
+                        .price(exposition.getPrice())
+                        .capacity(exposition.getCapacity())
+                        .imagePath(exposition.getImagePath())
+                        .detailsLink(exposition.getDetailsLink())
+                        .statusName(exposition.getStatusName())
+                        .build());
+            }
+        });
+        return expositionDTOS;
     }
 
     @Override
